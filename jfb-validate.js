@@ -346,7 +346,10 @@ var jfbValidate = angular.module('jfb.validate', [])
 
             configDirective: function(element, attrs, validate_condition, text_message_box) {
 
-                if (attrs.jfbValidateIsAlert == null) attrs.jfbValidateIsAlert = false;
+                if (attrs.jfbValidateIsAlert == null) {
+                    attrs.jfbValidateIsAlert = false;
+                    element.attr("jfb-validate-is-alert", "false");
+                }
 
                 // Definition of the element's transition duration
                 jfbValidateElement.configElementTransitions(element);
@@ -366,6 +369,7 @@ var jfbValidate = angular.module('jfb.validate', [])
 
                         // Put isAlert On true before the animation begins:
                         attrs.jfbValidateIsAlert = true;
+                        element.attr("jfb-validate-is-alert", "true");
 
                         // Change the element's border color
                         jfbValidateElement.changeElementBorderColor(element, jfbValidateConfig.color_alert);
@@ -398,8 +402,14 @@ var jfbValidate = angular.module('jfb.validate', [])
                                 // Callback: When the message box is removed, put isAlert on false
                                 function() {
                                 attrs.jfbValidateIsAlert = false;
+                                element.attr("jfb-validate-is-alert", "false");
                             });
-                        } else attrs.jfbValidateIsAlert = false;
+
+                        } else {
+
+                            attrs.jfbValidateIsAlert = false;
+                            element.attr("jfb-validate-is-alert", "false");
+                        }
                     }
 
                 });
