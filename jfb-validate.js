@@ -407,6 +407,8 @@ var jfbValidate = angular.module('jfb.validate', [])
                 // When the element gains the focus...
                 element.on('focus', function() {
 
+                    element.attr("jfb-validate-is-alert", "false");
+
                     // Change the element's border color
                     jfbValidateElement.changeElementBorderColor(element, jfbValidateConfig.color_focused);
 
@@ -420,13 +422,11 @@ var jfbValidate = angular.module('jfb.validate', [])
                                 // Callback: When the message box is removed, put isAlert on false
                                 function() {
                                 attrs.jfbValidateIsAlert = false;
-                                element.attr("jfb-validate-is-alert", "false");
                             });
 
                         } else {
 
                             attrs.jfbValidateIsAlert = false;
-                            element.attr("jfb-validate-is-alert", "false");
                         }
                     }
 
