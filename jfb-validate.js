@@ -346,9 +346,27 @@ var jfbValidate = angular.module('jfb.validate', [])
 
             configDirective: function(element, attrs, validate_condition, text_message_box) {
 
+
+
                 if (attrs.jfbValidateIsAlert == null) {
+
                     attrs.jfbValidateIsAlert = false;
-                    element.attr("jfb-validate-is-alert", "false");
+
+                    if (validate_condition(attrs.jfbValidateContent)) {
+
+                        element.attr("jfb-validate-is-alert", "false");
+
+                    } else {
+
+                        element.attr("jfb-validate-is-alert", "true");
+                    }
+
+                } else {
+
+                    if (!validate_condition(attrs.jfbValidateContent)) {
+
+                        element.attr("jfb-validate-is-alert", "true");
+                    }
                 }
 
                 // Definition of the element's transition duration
