@@ -6,7 +6,7 @@
   ],
   "description": "Mini framework based on angular to facilitate the creation of directives that validate html fields using visual and animated alerts.",
 
-  "main": "jfb-validate.js preset-directives/*",
+  "main": "jfb-validate.js",
   "keywords": [
     "jfb",
     "joanf81",
