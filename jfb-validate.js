@@ -346,8 +346,6 @@ var jfbValidate = angular.module('jfb.validate', [])
 
             configDirective: function(element, attrs, validate_condition, text_message_box) {
 
-
-
                 if (attrs.jfbValidateIsAlert == null) {
 
                     attrs.jfbValidateIsAlert = false;
