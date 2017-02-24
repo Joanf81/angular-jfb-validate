@@ -346,88 +346,97 @@ var jfbValidate = angular.module('jfb.validate', [])
 
             configDirective: function(element, attrs, validate_condition, text_message_box) {
 
-                if (attrs.jfbValidateIsAlert == null) {
+                $(document).ready(function() {
+                    
+                    setTimeout(function() {
 
-                    attrs.jfbValidateIsAlert = false;
+                        console.log(element.attr("jfb-validate-is-alert"));
 
-                    if (validate_condition(attrs.jfbValidateContent)) {
+                        if (attrs.jfbValidateIsAlert == null) {
 
-                        element.attr("jfb-validate-is-alert", "false");
+                            attrs.jfbValidateIsAlert = false;
 
-                    } else {
+                            if (validate_condition(attrs.jfbValidateContent)) {
 
-                        element.attr("jfb-validate-is-alert", "true");
-                    }
+                                element.attr("jfb-validate-is-alert", "false");
 
-                } else {
+                            } else {
 
-                    if (!validate_condition(attrs.jfbValidateContent)) {
-
-                        element.attr("jfb-validate-is-alert", "true");
-                    }
-                }
-
-                // Definition of the element's transition duration
-                jfbValidateElement.configElementTransitions(element);
-
-                // If the height of the showed message box is not defined in the directive parameters, use the default value defined in the config file
-                if (attrs.jfbValidateAlertHeight != null) var height_alert_box = attrs.jfbValidateAlertHeight;
-                else var height_alert_box = jfbValidateConfig.height_message_box;
-
-
-                //  ADD EVENT LISTENERS TO ELEMENT:
-
-                // When the element losts focus...
-                element.on('blur', function() {
-
-                    // and the element is empty and it hasn't an alert message
-                    if (!validate_condition(attrs.jfbValidateContent) && !attrs.jfbValidateIsAlert) {
-
-                        // Put isAlert On true before the animation begins:
-                        attrs.jfbValidateIsAlert = true;
-                        element.attr("jfb-validate-is-alert", "true");
-
-                        // Change the element's border color
-                        jfbValidateElement.changeElementBorderColor(element, jfbValidateConfig.color_alert);
-
-                        // Show the alert message box
-                        if (attrs.jfbValidateShowAlert != 'FALSE' && attrs.jfbValidateShowAlert != 'False' && attrs.jfbValidateShowAlert != 'false') 
-                            jfbValidateMessageBoxAnimation.showAlertMessageBox(element, height_alert_box, text_message_box);
-
-                        // and the element is not empty
-                    } else if (validate_condition(attrs.jfbValidateContent) && !attrs.jfbValidateIsAlert) {
-
-                        // Change the element's border color
-                        jfbValidateElement.changeElementBorderColor(element, jfbValidateConfig.color_validated);
-                    }
-                });
-
-                // When the element gains the focus...
-                element.on('focus', function() {
-
-                    element.attr("jfb-validate-is-alert", "false");
-
-                    // Change the element's border color
-                    jfbValidateElement.changeElementBorderColor(element, jfbValidateConfig.color_focused);
-
-                    // and it has an alert message
-                    if (attrs.jfbValidateIsAlert) {
-
-                        // Hide the alert message box
-                        if (attrs.jfbValidateShowAlert != 'FALSE' && attrs.jfbValidateShowAlert != 'False' && attrs.jfbValidateShowAlert != 'false') {
-                            jfbValidateMessageBoxAnimation.hideAlertMessageBox(element, 
-
-                                // Callback: When the message box is removed, put isAlert on false
-                                function() {
-                                attrs.jfbValidateIsAlert = false;
-                            });
+                                element.attr("jfb-validate-is-alert", "true");
+                            }
 
                         } else {
 
-                            attrs.jfbValidateIsAlert = false;
-                        }
-                    }
+                            if (!validate_condition(attrs.jfbValidateContent)) {
 
+                                element.attr("jfb-validate-is-alert", "true");
+                            }
+                        }
+                    }, 200);
+
+
+                    // Definition of the element's transition duration
+                    jfbValidateElement.configElementTransitions(element);
+
+                    // If the height of the showed message box is not defined in the directive parameters, use the default value defined in the config file
+                    if (attrs.jfbValidateAlertHeight != null) var height_alert_box = attrs.jfbValidateAlertHeight;
+                    else var height_alert_box = jfbValidateConfig.height_message_box;
+
+
+                    //  ADD EVENT LISTENERS TO ELEMENT:
+
+
+                    // When the element losts focus...
+                    element.on('blur', function() {
+
+                        // and the element is empty and it hasn't an alert message
+                        if (!validate_condition(attrs.jfbValidateContent) && !attrs.jfbValidateIsAlert) {
+
+                            // Put isAlert On true before the animation begins:
+                            attrs.jfbValidateIsAlert = true;
+                            element.attr("jfb-validate-is-alert", "true");
+
+                            // Change the element's border color
+                            jfbValidateElement.changeElementBorderColor(element, jfbValidateConfig.color_alert);
+
+                            // Show the alert message box
+                            if (attrs.jfbValidateShowAlert != 'FALSE' && attrs.jfbValidateShowAlert != 'False' && attrs.jfbValidateShowAlert != 'false')
+                                jfbValidateMessageBoxAnimation.showAlertMessageBox(element, height_alert_box, text_message_box);
+
+                            // and the element is not empty
+                        } else if (validate_condition(attrs.jfbValidateContent) && !attrs.jfbValidateIsAlert) {
+
+                            // Change the element's border color
+                            jfbValidateElement.changeElementBorderColor(element, jfbValidateConfig.color_validated);
+                        }
+                    });
+
+                    // When the element gains the focus...
+                    element.on('focus', function() {
+
+                        element.attr("jfb-validate-is-alert", "false");
+
+                        // Change the element's border color
+                        jfbValidateElement.changeElementBorderColor(element, jfbValidateConfig.color_focused);
+
+                        // and it has an alert message
+                        if (attrs.jfbValidateIsAlert) {
+
+                            // Hide the alert message box
+                            if (attrs.jfbValidateShowAlert != 'FALSE' && attrs.jfbValidateShowAlert != 'False' && attrs.jfbValidateShowAlert != 'false') {
+                                jfbValidateMessageBoxAnimation.hideAlertMessageBox(element,
+
+                                    // Callback: When the message box is removed, put isAlert on false
+                                    function() {
+                                        attrs.jfbValidateIsAlert = false;
+                                    });
+
+                            } else {
+
+                                attrs.jfbValidateIsAlert = false;
+                            }
+                        }
+                    });
                 });
             }
         }
