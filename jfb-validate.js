@@ -350,8 +350,6 @@ var jfbValidate = angular.module('jfb.validate', [])
                     
                     setTimeout(function() {
 
-                        console.log(element.attr("jfb-validate-is-alert"));
-
                         if (attrs.jfbValidateIsAlert == null) {
 
                             attrs.jfbValidateIsAlert = false;
